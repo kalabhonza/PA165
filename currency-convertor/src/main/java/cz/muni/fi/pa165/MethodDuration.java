@@ -10,9 +10,14 @@ import javax.inject.Named;
 @Named
 public class MethodDuration {
     @Around("execution(public * *(..))")
-    public Object getMethodDuration(ProceedingJoinPoint joinPoint) throws Throwable{
+    public Object getMethodDuration(ProceedingJoinPoint joinPoint){
         long startTime = System.currentTimeMillis();
-        Object returnedObject = joinPoint.proceed();
+        Object returnedObject = null;
+        try {
+            returnedObject = joinPoint.proceed();
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
+        }
         long endTime = System.currentTimeMillis();
         System.out.println("Method " + joinPoint.getSignature() + " took " + (endTime-startTime) + " ms");
         return returnedObject;

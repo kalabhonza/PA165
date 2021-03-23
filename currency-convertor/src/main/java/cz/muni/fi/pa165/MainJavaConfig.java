@@ -10,7 +10,7 @@ import java.util.Currency;
 public class MainJavaConfig {
     public static void main(String args[]) {
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(JavaConfig.class);
-        CurrencyConvertor curr = context.getBean(CurrencyConvertor.class);
+        CurrencyConvertor curr = (CurrencyConvertor) context.getBean("currencyConvertor");
         Currency EUR = Currency.getInstance("EUR");
         Currency CZK = Currency.getInstance("CZK");
         BigDecimal OneEurInCzk = curr.convert(EUR, CZK, new BigDecimal("1"));
